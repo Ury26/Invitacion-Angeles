@@ -29,7 +29,6 @@
     }
 
     body {
-      background-color: var(--bg-color);
       color: var(--text-color);
       font-family: 'Montserrat', sans-serif;
       text-align: center;
@@ -39,6 +38,51 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      
+      /* --- FONDO DE LENTEJUELAS NEGRAS --- */
+      background-color: var(--bg-color);
+      background-image: url('https://i.ibb.co/L5hY0Z6/black-sequins.png');
+      background-repeat: repeat;
+      background-size: 250px; /* Ajusta este tamaño para ver más o menos lentejuelas */
+      position: relative;
+    }
+
+    /* Contenedor de brillos */
+    #sparkle-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none; /* No interfiere con los clics */
+      z-index: 0; /* Por detrás de las tarjetas y el texto */
+    }
+
+    /* Brillos animados */
+    .sparkle {
+      position: absolute;
+      width: 8px; /* Tamaño de los brillos */
+      height: 8px;
+      background-image: url('https://i.ibb.co/5G7j9n9/gold-sparkle.png'); /* Estrella brillante */
+      background-size: cover;
+      opacity: 0;
+      pointer-events: none;
+      animation: twinkle 1.5s ease-in-out forwards;
+    }
+
+    @keyframes twinkle {
+      0% {
+        opacity: 0;
+        transform: scale(0);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.5);
+      }
     }
 
     /* --- PANTALLA SOBRE ELEGANTE CENTRADA --- */
@@ -150,6 +194,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 1.2s ease;
+      z-index: 10; /* Por delante de los brillos */
     }
 
     .gold-text {
@@ -207,6 +252,8 @@
       padding: 20px;
       margin: 25px 0;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+      position: relative; /* Para asegurar que el texto se mantenga legible */
+      z-index: 20;
     }
 
     /* NUEVO DISEÑO TIPOGRÁFICO DE LA FECHA */
@@ -320,6 +367,9 @@
   </style>
 </head>
 <body>
+
+  <!-- Contenedor para los brillos animados -->
+  <div id="sparkle-container"></div>
 
   <!-- PANTALLA SOBRE ELEGANTE -->
   <div id="envelope-screen">
@@ -456,6 +506,35 @@
 
     setInterval(updateCountdown, 1000);
     updateCountdown();
+
+    // --- ANIMACIÓN DE BRILLOS (SPARKLES) NOCTURNOS ---
+    function createSparkle() {
+      const container = document.getElementById('sparkle-container');
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      
+      // Posición aleatoria
+      sparkle.style.left = Math.random() * 100 + 'vw';
+      sparkle.style.top = Math.random() * 100 + 'vh';
+      
+      // Velocidad y retraso aleatorios para que sea más orgánico
+      sparkle.style.animationDelay = Math.random() * 2 + 's';
+      
+      container.appendChild(sparkle);
+      
+      // Eliminar el elemento después de la animación para no saturar la memoria
+      setTimeout(() => {
+        sparkle.remove();
+      }, 3500);
+    }
+
+    // Crear un brillo nuevo cada cierto tiempo (menor frecuencia para mayor elegancia)
+    setInterval(createSparkle, 300); 
+    
+    // Crear una ráfaga inicial
+    for(let i=0; i<15; i++) {
+        createSparkle();
+    }
   </script>
 </body>
 </html>
