@@ -14,7 +14,6 @@
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
   <style>
-    /* VARIABLES Y ESTILOS GENERALES */
     :root {
       --bg-color: #0b0b0b;
       --gold-primary: #d4af37;
@@ -35,9 +34,14 @@
       font-family: 'Montserrat', sans-serif;
       text-align: center;
       overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* --- PANTALLA SOBRE (INICIAL) --- */
+    /* --- PANTALLA SOBRE ELEGANTE CENTRADA --- */
     #envelope-screen {
       position: fixed;
       top: 0;
@@ -51,69 +55,103 @@
       align-items: center;
       z-index: 999;
       transition: opacity 1s ease, visibility 1s ease;
+      perspective: 1000px;
     }
 
-    .envelope {
-      width: 260px;
-      height: 170px;
-      background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
-      border: 2px solid var(--gold-primary);
-      border-radius: 10px;
-      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      cursor: pointer;
+    .envelope-box {
       position: relative;
-      transition: transform 0.3s ease;
+      width: 290px;
+      height: 190px;
+      background: #151515;
+      border-radius: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(212, 175, 55, 0.2);
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      cursor: pointer;
     }
 
-    .envelope:hover {
-      transform: scale(1.05);
+    /* Solapa superior del sobre */
+    .envelope-flap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 145px solid transparent;
+      border-right: 145px solid transparent;
+      border-top: 105px solid #1f1f1f;
+      transform-origin: top;
+      transition: transform 0.6s ease;
+      z-index: 3;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
     }
 
-    .stamp {
-      width: 65px;
-      height: 65px;
-      background: linear-gradient(45deg, var(--gold-dark), var(--gold-light));
+    .envelope-box.open .envelope-flap {
+      transform: rotateX(180deg);
+    }
+
+    /* Solapas laterales e inferiores */
+    .envelope-pocket {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border-left: 145px solid #181818;
+      border-right: 145px solid #181818;
+      border-top: 95px solid transparent;
+      border-bottom: 95px solid #121212;
+      border-radius: 0 0 8px 8px;
+      z-index: 2;
+    }
+
+    /* Sello de cera dorado */
+    .wax-seal {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, var(--gold-light), var(--gold-primary), var(--gold-dark));
       border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       color: #000;
       font-family: 'Cinzel', serif;
-      font-weight: bold;
-      font-size: 1.3rem;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 15px rgba(212, 175, 55, 0.6);
+      z-index: 4;
+      border: 2px solid #fff;
+      transition: transform 0.3s ease;
     }
 
-    .btn-open {
-      margin-top: 35px;
-      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
-      color: #000;
-      border: none;
-      padding: 12px 30px;
+    .envelope-box:hover .wax-seal {
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .open-instruction {
+      margin-top: 30px;
       font-family: 'Cinzel', serif;
-      font-size: 0.95rem;
-      font-weight: 700;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-      letter-spacing: 2px;
+      color: var(--gold-light);
+      font-size: 0.9rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
     }
 
     /* --- CONTENEDOR PRINCIPAL DE LA INVITACIÓN --- */
     .wrapper {
       max-width: 480px;
-      margin: 0 auto;
-      padding: 20px 15px 50px 15px;
+      width: 100%;
+      margin: auto;
+      padding: 40px 15px;
       position: relative;
       opacity: 0;
       visibility: hidden;
       transition: opacity 1.2s ease;
     }
 
-    /* TEXTO CON DEGRADADO DORADO */
     .gold-text {
       background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
       -webkit-background-clip: text;
@@ -121,7 +159,6 @@
       font-family: 'Cinzel', serif;
     }
 
-    /* ENCABEZADO Y ESPACIADOS */
     .intro-text {
       font-size: 1.1rem;
       letter-spacing: 4px;
@@ -151,7 +188,6 @@
       margin-bottom: 15px;
     }
 
-    /* ANIMACIÓN DE COPAS DE VINO */
     .wine-glasses {
       display: inline-block;
       font-size: 2rem;
@@ -164,7 +200,6 @@
       100% { transform: rotate(10deg) scale(1.1); }
     }
 
-    /* SECCIONES Y TARJETAS */
     .card {
       background: rgba(255, 255, 255, 0.03);
       border: 1px solid rgba(212, 175, 55, 0.3);
@@ -174,7 +209,6 @@
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
     }
 
-    /* CUENTA REGRESIVA */
     .countdown-container {
       display: flex;
       justify-content: space-around;
@@ -200,7 +234,6 @@
       color: #aaa;
     }
 
-    /* INFORMACIÓN DEL EVENTO */
     .event-info h3 {
       font-family: 'Cinzel', serif;
       color: var(--gold-primary);
@@ -221,7 +254,6 @@
       margin: 15px 0;
     }
 
-    /* BOTONES DORADOS */
     .btn-gold {
       display: inline-block;
       width: 100%;
@@ -246,15 +278,17 @@
 </head>
 <body>
 
-  <!-- PANTALLA SOBRE DE APERTURA -->
+  <!-- PANTALLA SOBRE ELEGANTE -->
   <div id="envelope-screen">
-    <div class="envelope" onclick="openInvitation()">
-      <div class="stamp">50</div>
+    <div class="envelope-box" id="envelope" onclick="openInvitation()">
+      <div class="envelope-flap"></div>
+      <div class="envelope-pocket"></div>
+      <div class="wax-seal">50</div>
     </div>
-    <button class="btn-open" onclick="openInvitation()">TOCA PARA ABRIR</button>
+    <p class="open-instruction">Toca el sello para abrir</p>
   </div>
 
-  <!-- INVITACIÓN PRINCIPAL -->
+  <!-- INVITACIÓN PRINCIPAL (APERTURA CENTRADA) -->
   <div class="wrapper" id="invitation-content">
     
     <!-- ENCABEZADO -->
@@ -299,7 +333,6 @@
 
     <!-- BOTONES DE UBICACIÓN -->
     <div style="margin-top: 20px;">
-      <!-- Reemplaza los enlaces con las ubicaciones exactas de Google Maps -->
       <a href="https://maps.google.com" target="_blank" class="btn-gold">📍 Ubicación de la Misa</a>
       <a href="https://maps.google.com" target="_blank" class="btn-gold">📍 Ubicación de la Reunión</a>
     </div>
@@ -309,26 +342,35 @@
   <script>
     // FUNCIÓN PARA ABRIR EL SOBRE
     function openInvitation() {
+      const envelope = document.getElementById('envelope');
       const envelopeScreen = document.getElementById('envelope-screen');
       const invitationContent = document.getElementById('invitation-content');
 
-      envelopeScreen.style.opacity = '0';
+      // Animar apertura de solapa
+      envelope.classList.add('open');
 
       setTimeout(function() {
-        envelopeScreen.style.display = 'none';
-        invitationContent.style.visibility = 'visible';
-        invitationContent.style.opacity = '1';
+        envelopeScreen.style.opacity = '0';
 
-        // Lanzar Confeti al abrir
-        if (typeof confetti === 'function') {
-          confetti({
-            particleCount: 90,
-            spread: 80,
-            origin: { y: 0.6 },
-            colors: ['#d4af37', '#f3e5ab', '#ffffff']
-          });
-        }
-      }, 800);
+        setTimeout(function() {
+          envelopeScreen.style.display = 'none';
+          invitationContent.style.visibility = 'visible';
+          invitationContent.style.opacity = '1';
+
+          // Centrar la pantalla al inicio del contenido
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+
+          // Lanzar Confeti
+          if (typeof confetti === 'function') {
+            confetti({
+              particleCount: 90,
+              spread: 80,
+              origin: { y: 0.5 },
+              colors: ['#d4af37', '#f3e5ab', '#ffffff']
+            });
+          }
+        }, 600);
+      }, 400);
     }
 
     // LÓGICA DE LA CUENTA REGRESIVA
