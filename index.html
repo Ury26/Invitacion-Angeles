@@ -371,9 +371,42 @@
     .btn-gold:active {
       transform: scale(0.98);
     }
+
+    /* BOTÓN FLOTANTE DE CONTROL DE MÚSICA */
+    #music-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      background: rgba(20, 20, 20, 0.8);
+      border: 1px solid var(--gold-primary);
+      border-radius: 50%;
+      color: var(--gold-light);
+      font-size: 1.2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s;
+    }
+
+    #music-btn:active {
+      transform: scale(0.9);
+    }
   </style>
 </head>
 <body>
+
+  <!-- ELEMENTO DE AUDIO OCULTO -->
+  <audio id="bg-music" loop>
+    <source src="URL_DE_TU_MUSICA.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- BOTÓN FLOTANTE DE CONTROL DE AUDIO -->
+  <div id="music-btn" onclick="toggleMusic()" style="display: none;">🎵</div>
 
   <!-- Contenedor para los brillos animados -->
   <div id="sparkle-container"></div>
@@ -458,11 +491,20 @@
   </div>
 
   <script>
-    // FUNCIÓN PARA ABRIR EL SOBRE
+    // FUNCIÓN PARA ABRIR EL SOBRE Y REPRODUCIR MÚSICA
     function openInvitation() {
       const envelope = document.getElementById('envelope');
       const envelopeScreen = document.getElementById('envelope-screen');
       const invitationContent = document.getElementById('invitation-content');
+      const audio = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+
+      // Intentar reproducir la música al hacer clic
+      audio.play().then(() => {
+        musicBtn.style.display = 'flex';
+      }).catch(error => {
+        console.log("El navegador no permitió autostart de audio:", error);
+      });
 
       // Animar apertura de solapa
       envelope.classList.add('open');
@@ -489,6 +531,20 @@
           }
         }, 600);
       }, 400);
+    }
+
+    // CONTROL MANUAL DE MÚSICA (PAUSAR / REPRODUCIR)
+    function toggleMusic() {
+      const audio = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+
+      if (audio.paused) {
+        audio.play();
+        musicBtn.innerText = '🎵';
+      } else {
+        audio.pause();
+        musicBtn.innerText = '🔇';
+      }
     }
 
     // LÓGICA DE LA CUENTA REGRESIVA
@@ -525,7 +581,7 @@
       sparkle.style.top = Math.random() * 100 + 'vh';
       
       // Tamaño aleatorio para dar profundidad
-      const size = Math.random() * 12 + 10; // entre 10px y 22px
+      const size = Math.random() * 12 + 10;
       sparkle.style.width = size + 'px';
       sparkle.style.height = size + 'px';
 
