@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Invitación Especial - Ángeles</title>
+  <!-- Tipografía elegante desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* PALETA NEGRO Y DORADO ELEGANTE */
+    :root {
+      --bg-color: #0d0d0d;
+      --card-bg: #161616;
+      --text-white: #ffffff;
+      --gold-main: #f1c40f;
+      --gold-gradient: linear-gradient(135deg, #ffe066 0%, #d4af37 50%, #aa7c11 100%);
+      --gold-shadow: rgba(212, 175, 55, 0.3);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-white);
+      font-family: 'Montserrat', sans-serif;
+      overflow-x: hidden;
+      text-align: center;
+    }
+
+    /* PANTALLA INICIAL: SOBRE DORADO */
+    #envelope-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+      cursor: pointer;
+      border: 2px solid var(--gold-main);
+    }
+
+    .envelope-box {
+      text-align: center;
+      animation: pulse 2s infinite;
+    }
+
+    .envelope-icon {
+      font-size: 80px;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 0 10px var(--gold-main));
+    }
+
+    .envelope-text {
+      color: var(--gold-main);
+      font-family: 'Cinzel', serif;
+      font-size: 1.2rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    /* CANVAS DE SERPENTINAS DORADAS */
+    #canvas-confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* CONTENEDOR PRINCIPAL */
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 40px 20px 80px 20px;
+    }
+
+    /* EFECTOS DE TEXTO Y FUENTES */
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+
+    .text-gold {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 15px var(--gold-shadow);
+    }
+
+    /* TAMAÑOS DE TEXTO INTERCALADOS */
+    .text-big {
+      font-size: 2.8rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin: 10px 0;
+    }
+
+    .text-huge {
+      font-size: 4.5rem;
+      font-weight: 900;
+      line-height: 1;
+      margin: 15px 0;
+    }
+
+    .text-small {
+      font-size: 1.2rem;
+      font-weight: 300;
+      letter-spacing: 4px;
+      text-transform: lowercase;
+      color: #cccccc;
+      margin: 5px 0;
+    }
+
+    /* ANIMACIONES DE REVEAL EN SCROLL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px) scale(0.95);
+      transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      margin-bottom: 45px;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+
+    /* TARJETAS DE INFORMACIÓN EN NEGRO ELEGANTE */
+    .card-dark {
+      background: var(--card-bg);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      border-radius: 16px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(212, 175, 55, 0.1);
+    }
+
+    /* CUENTA REGRESIVA DORADA */
+    .countdown-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .countdown-box {
+      background: #000000;
+      border: 1px solid var(--gold-main);
+      padding: 12px 5px;
+      border-radius: 10px;
+    }
+
+    .number {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--gold-main);
+      display: block;
+    }
+
+    .label {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #aaaaaa;
+    }
+
+    /* SECCIÓN DE DETALLES */
+    .details-item {
+      margin: 15px 0;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+
+    .details-item strong {
+      color: var(--gold-main);
+      display: block;
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* BOTÓN GPS */
+    .btn-gold {
+      display: inline-block;
+      background: var(--gold-gradient);
+      color: #000000;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 30px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      margin-top: 15px;
+      box-shadow: 0 4px 15px var(--gold-shadow);
+      text-transform: uppercase;
+    }
+
+    /* MENSAJE FINAL "TE ESPERO" */
+    .final-message {
+      font-size: 3.2rem;
+      font-weight: 900;
+      letter-spacing: 3px;
+      margin-top: 20px;
+      text-shadow: 0 0 20px rgba(241, 196, 15, 0.6);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SOBRE INICIAL DE BIENVENIDA -->
+  <div id="envelope-screen" onclick="openInvitation()">
+    <div class="envelope-box">
+      <div class="envelope-icon">✉️</div>
+      <div class="envelope-text">TOCA PARA ABRIR</div>
+    </div>
+  </div>
+
+  <!-- CANVAS PARA SERPENTINAS DORADAS -->
+  <canvas id="canvas-confetti"></canvas>
+
+  <!-- CONTENIDO DE LA INVITACIÓN -->
+  <div class="container">
+    
+    <!-- FRASES INTERCALADAS (GRANDE / CHICO) -->
+    <div class="reveal">
+      <div class="text-big font-cinzel text-gold">ESTÁS</div>
+      <div class="text-small">invitado al</div>
+      <div class="text-big font-cinzel text-gold">CUMPLEAÑOS</div>
+      <div class="text-small">no.</div>
+      <div class="text-huge font-cinzel text-gold">50</div>
+      <div class="text-small">de</div>
+      <div class="text-big font-cinzel text-gold" style="font-size: 3.2rem;">ÁNGELES</div>
+    </div>
+
+    <!-- CUENTA REGRESIVA -->
+    <div class="reveal card-dark">
+      <div class="text-small" style="letter-spacing: 2px; color: var(--gold-main);">FALTAN SÓLO</div>
+      <div class="countdown-grid">
+        <div class="countdown-box"><span id="days" class="number">00</span><span class="label">Días</span></div>
+        <div class="countdown-box"><span id="hours" class="number">00</span><span class="label">Horas</span></div>
+        <div class="countdown-box"><span id="minutes" class="number">00</span><span class="label">Min</span></div>
+        <div class="countdown-box"><span id="seconds" class="number">00</span><span class="label">Seg</span></div>
+      </div>
+    </div>
+
+    <!-- FECHA, HORA Y DIRECCIÓN -->
+    <div class="reveal card-dark">
+      <div class="details-item">
+        <strong>Fecha</strong>
+        Sábado, 15 de Noviembre de 2026
+      </div>
+      <div class="details-item">
+        <strong>Hora</strong>
+        6:00 PM
+      </div>
+      <div class="details-item">
+        <strong>Lugar</strong>
+        Salón de Eventos "Las Palmas"
+      </div>
+      <div class="details-item">
+        <strong>Dirección</strong>
+        Av. Principal #123, Colonia Centro
+      </div>
+      <a href="https://maps.google.com" target="_blank" class="btn-gold">Ver Ubicación en GPS</a>
+    </div>
+
+    <!-- MENSAJE FINAL GRANDOTE -->
+    <div class="reveal">
+      <div class="final-message font-cinzel text-gold">TE ESPERO</div>
+    </div>
+
+  </div>
+
+  <script>
+    // 1. FECHA DEL EVENTO (Ajusta la fecha aquí)
+    const eventDate = new Date("Nov 15, 2026 18:00:00").getTime();
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const diff = eventDate - now;
+
+      if (diff > 0) {
+        document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById("minutes").innerText = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        document.getElementById("seconds").innerText = Math.floor((diff % (1000 * 60)) / 1000).toString().padStart(2, '0');
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // 2. ABRIR SOBRE Y DISPARAR SERPENTINAS
+    function openInvitation() {
+      const env = document.getElementById("envelope-screen");
+      env.style.opacity = "0";
+      setTimeout(() => {
+        env.style.visibility = "hidden";
+      }, 800);
+      launchGoldStreamers();
+    }
+
+    // 3. ANIMACIÓN DE SERPENTINAS DORADAS
+    function launchGoldStreamers() {
+      const canvas = document.getElementById("canvas-confetti");
+      const ctx = canvas.getContext("2d");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const particles = [];
+      // Tonalidades de dorado, blanco y champán
+      const colors = ["#ffe066", "#d4af37", "#aa7c11", "#ffffff", "#fff8dc"];
+
+      for (let i = 0; i < 140; i++) {
+        particles.push({
+          x: canvas.width / 2,
+          y: canvas.height / 2,
+          vx: (Math.random() - 0.5) * 14,
+          vy: (Math.random() - 0.8) * 16,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          rotation: Math.random() * 360,
+          vRot: (Math.random() - 0.5) * 12
+        });
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        let activeParticles = 0;
+
+        particles.forEach(p => {
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.22; // Gravedad suave
+          p.rotation += p.vRot;
+
+          if (p.y < canvas.height) {
+            activeParticles++;
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 2.5); // Serpentinas alargadas
+            ctx.restore();
+          }
+        });
+
+        if (activeParticles > 0) {
+          requestAnimationFrame(animate);
+        }
+      }
+      animate();
+    }
+
+    // 4. OBSERVADOR DE SCROLL PARA REVEAL ANIMADO
+    const reveals = document.querySelectorAll(".reveal");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
