@@ -37,12 +37,80 @@
       overflow-x: hidden;
     }
 
-    /* CONTENEDOR PRINCIPAL TIPO MÓVIL */
+    /* --- PANTALLA SOBRE (INICIAL) --- */
+    #envelope-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      transition: opacity 1s ease, visibility 1s ease;
+    }
+
+    .envelope {
+      width: 260px;
+      height: 170px;
+      background: linear-gradient(135deg, #1f1f1f, #0a0a0a);
+      border: 2px solid var(--gold-primary);
+      border-radius: 10px;
+      box-shadow: 0 0 25px rgba(212, 175, 55, 0.35);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope:hover {
+      transform: scale(1.05);
+    }
+
+    .stamp {
+      width: 65px;
+      height: 65px;
+      background: linear-gradient(45deg, var(--gold-dark), var(--gold-light));
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #000;
+      font-family: 'Cinzel', serif;
+      font-weight: bold;
+      font-size: 1.3rem;
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+    }
+
+    .btn-open {
+      margin-top: 35px;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      color: #000;
+      border: none;
+      padding: 12px 30px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 25px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+      letter-spacing: 2px;
+    }
+
+    /* --- CONTENEDOR PRINCIPAL DE LA INVITACIÓN --- */
     .wrapper {
       max-width: 480px;
       margin: 0 auto;
       padding: 20px 15px 50px 15px;
       position: relative;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1.2s ease;
     }
 
     /* TEXTO CON DEGRADADO DORADO */
@@ -178,7 +246,16 @@
 </head>
 <body>
 
-  <div class="wrapper">
+  <!-- PANTALLA SOBRE DE APERTURA -->
+  <div id="envelope-screen">
+    <div class="envelope" onclick="openInvitation()">
+      <div class="stamp">50</div>
+    </div>
+    <button class="btn-open" onclick="openInvitation()">TOCA PARA ABRIR</button>
+  </div>
+
+  <!-- INVITACIÓN PRINCIPAL -->
+  <div class="wrapper" id="invitation-content">
     
     <!-- ENCABEZADO -->
     <p class="intro-text">Estás invitado al</p>
@@ -230,17 +307,29 @@
   </div>
 
   <script>
-    // EFECTO DE CONFETI AL CARGAR LA PÁGINA
-    window.addEventListener('load', function() {
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#d4af37', '#f3e5ab', '#ffffff']
-        });
-      }
-    });
+    // FUNCIÓN PARA ABRIR EL SOBRE
+    function openInvitation() {
+      const envelopeScreen = document.getElementById('envelope-screen');
+      const invitationContent = document.getElementById('invitation-content');
+
+      envelopeScreen.style.opacity = '0';
+
+      setTimeout(function() {
+        envelopeScreen.style.display = 'none';
+        invitationContent.style.visibility = 'visible';
+        invitationContent.style.opacity = '1';
+
+        // Lanzar Confeti al abrir
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 90,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#d4af37', '#f3e5ab', '#ffffff']
+          });
+        }
+      }, 800);
+    }
 
     // LÓGICA DE LA CUENTA REGRESIVA
     const eventDate = new Date('November 15, 2026 17:00:00').getTime();
