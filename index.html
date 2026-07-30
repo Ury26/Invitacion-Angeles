@@ -189,10 +189,10 @@
     }
 
     .wine-glasses {
-     display: inline-block;
-     font-size: 7rem; /* Copas más grandes y vistosas */
-     margin-top: 10px;
-     animation: cheers 1.5s infinite ease-in-out alternate;
+      display: inline-block;
+      font-size: 7rem;
+      margin-top: 10px;
+      animation: cheers 1.5s infinite ease-in-out alternate;
     }
 
     @keyframes cheers {
@@ -207,6 +207,49 @@
       padding: 20px;
       margin: 25px 0;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    /* NUEVO DISEÑO TIPOGRÁFICO DE LA FECHA */
+    .date-display {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .date-column {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Cinzel', serif;
+    }
+
+    .date-day-name, .date-year {
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .date-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .date-month {
+      font-size: 1.2rem;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    .date-divider {
+      width: 2px;
+      height: 55px;
+      background: linear-gradient(to bottom, transparent, var(--gold-primary), transparent);
+      margin: 0 10px;
     }
 
     .countdown-container {
@@ -313,10 +356,27 @@
       </div>
     </div>
 
-    <!-- FECHA PRINCIPAL -->
+    <!-- FECHA PRINCIPAL (NUEVO DISEÑO CON LÍNEAS VERTICALES) -->
     <div class="card event-info">
       <h3>FECHA</h3>
-      <p>Domingo, 2 de Agosto de 2026</p>
+      <div class="date-display">
+        <div class="date-column">
+          <span class="date-day-name gold-text">DOMINGO</span>
+        </div>
+        
+        <div class="date-divider"></div>
+        
+        <div class="date-column">
+          <span class="date-number gold-text">2</span>
+          <span class="date-month gold-text">Agosto</span>
+        </div>
+        
+        <div class="date-divider"></div>
+        
+        <div class="date-column">
+          <span class="date-year gold-text">2026</span>
+        </div>
+      </div>
     </div>
 
     <!-- DETALLES DE MISA Y REUNIÓN -->
