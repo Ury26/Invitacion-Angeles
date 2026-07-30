@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --bg-color: #0b0b0b;
+      --bg-color: #080808;
       --gold-primary: #d4af37;
       --gold-light: #f3e5ab;
       --gold-dark: #aa7c11;
@@ -38,13 +38,17 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      
-      /* --- FONDO DE LENTEJUELAS NEGRAS --- */
-      background-color: var(--bg-color);
-      background-image: url('https://i.ibb.co/L5hY0Z6/black-sequins.png');
-      background-repeat: repeat;
-      background-size: 250px; /* Ajusta este tamaño para ver más o menos lentejuelas */
       position: relative;
+      
+      /* --- FONDO DE LENTEJUELAS EN CSS PURA (Radial Gradients) --- */
+      background-color: var(--bg-color);
+      background-image: 
+        radial-gradient(circle at 50% 50%, rgba(50, 50, 50, 0.3) 15%, transparent 20%),
+        radial-gradient(circle at 0% 0%, rgba(255, 255, 255, 0.08) 10%, transparent 15%),
+        radial-gradient(circle at 100% 100%, rgba(212, 175, 55, 0.08) 12%, transparent 18%),
+        radial-gradient(circle at 20% 80%, rgba(40, 40, 40, 0.4) 15%, transparent 22%);
+      background-size: 18px 18px, 24px 24px, 30px 30px, 20px 20px;
+      background-position: 0 0, 9px 9px, 15px 15px, 5px 5px;
     }
 
     /* Contenedor de brillos */
@@ -54,34 +58,36 @@
       left: 0;
       width: 100vw;
       height: 100vh;
-      pointer-events: none; /* No interfiere con los clics */
-      z-index: 0; /* Por detrás de las tarjetas y el texto */
+      pointer-events: none;
+      z-index: 1;
     }
 
-    /* Brillos animados */
+    /* ESTRELLA / BRILLO VECTORIAL (SVG Puro) */
     .sparkle {
       position: absolute;
-      width: 8px; /* Tamaño de los brillos */
-      height: 8px;
-      background-image: url('https://i.ibb.co/5G7j9n9/gold-sparkle.png'); /* Estrella brillante */
-      background-size: cover;
+      width: 16px;
+      height: 16px;
       opacity: 0;
       pointer-events: none;
-      animation: twinkle 1.5s ease-in-out forwards;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23f3e5ab'%3E%3Cpath d='M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z'/%3E%3C/svg%3E");
+      background-size: contain;
+      background-repeat: no-repeat;
+      filter: drop-shadow(0 0 6px rgba(243, 229, 171, 0.9));
+      animation: twinkle 1.8s ease-in-out forwards;
     }
 
     @keyframes twinkle {
       0% {
         opacity: 0;
-        transform: scale(0);
+        transform: scale(0) rotate(0deg);
       }
       50% {
         opacity: 1;
-        transform: scale(1.2);
+        transform: scale(1.4) rotate(45deg);
       }
       100% {
         opacity: 0;
-        transform: scale(0.5);
+        transform: scale(0.2) rotate(90deg);
       }
     }
 
@@ -194,7 +200,7 @@
       opacity: 0;
       visibility: hidden;
       transition: opacity 1.2s ease;
-      z-index: 10; /* Por delante de los brillos */
+      z-index: 10;
     }
 
     .gold-text {
@@ -246,13 +252,14 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(212, 175, 55, 0.3);
+      background: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(212, 175, 55, 0.35);
       border-radius: 12px;
       padding: 20px;
       margin: 25px 0;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-      position: relative; /* Para asegurar que el texto se mantenga legible */
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+      position: relative;
       z-index: 20;
     }
 
@@ -507,7 +514,7 @@
     setInterval(updateCountdown, 1000);
     updateCountdown();
 
-    // --- ANIMACIÓN DE BRILLOS (SPARKLES) NOCTURNOS ---
+    // --- ANIMACIÓN DE BRILLOS (SPARKLES) EN CSS + SVG ---
     function createSparkle() {
       const container = document.getElementById('sparkle-container');
       const sparkle = document.createElement('div');
@@ -517,24 +524,21 @@
       sparkle.style.left = Math.random() * 100 + 'vw';
       sparkle.style.top = Math.random() * 100 + 'vh';
       
-      // Velocidad y retraso aleatorios para que sea más orgánico
-      sparkle.style.animationDelay = Math.random() * 2 + 's';
-      
+      // Tamaño aleatorio para dar profundidad
+      const size = Math.random() * 12 + 10; // entre 10px y 22px
+      sparkle.style.width = size + 'px';
+      sparkle.style.height = size + 'px';
+
       container.appendChild(sparkle);
       
-      // Eliminar el elemento después de la animación para no saturar la memoria
+      // Eliminar el nodo después de animarse
       setTimeout(() => {
         sparkle.remove();
-      }, 3500);
+      }, 1800);
     }
 
-    // Crear un brillo nuevo cada cierto tiempo (menor frecuencia para mayor elegancia)
-    setInterval(createSparkle, 300); 
-    
-    // Crear una ráfaga inicial
-    for(let i=0; i<15; i++) {
-        createSparkle();
-    }
+    // Genera brillos con frecuencia uniforme
+    setInterval(createSparkle, 180);
   </script>
 </body>
 </html>
