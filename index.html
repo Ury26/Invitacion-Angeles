@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -263,7 +263,7 @@
       z-index: 20;
     }
 
-    /* NUEVO DISEÑO TIPOGRÁFICO DE LA FECHA */
+    /* DISEÑO TIPOGRÁFICO DE LA FECHA */
     .date-display {
       display: flex;
       align-items: center;
@@ -421,9 +421,20 @@
     <p class="open-instruction">Toca el sello para abrir</p>
   </div>
 
-  <!-- INVITACIÓN PRINCIPAL (APERTURA CENTRADA) -->
+  <!-- INVITACIÓN PRINCIPAL -->
   <div class="wrapper" id="invitation-content">
     
+    <!-- CUENTA REGRESIVA EN LA PARTE SUPERIOR -->
+    <div class="card" style="margin-top: 10px; margin-bottom: 30px;">
+      <h3 class="gold-text" style="font-size: 1.1rem; letter-spacing: 2px;">FALTAN</h3>
+      <div class="countdown-container" id="countdown">
+        <div class="time-box"><span id="days">00</span><span>DÍAS</span></div>
+        <div class="time-box"><span id="hours">00</span><span>HORAS</span></div>
+        <div class="time-box"><span id="minutes">00</span><span>MINS</span></div>
+        <div class="time-box"><span id="seconds">00</span><span>SEGS</span></div>
+      </div>
+    </div>
+
     <!-- ENCABEZADO -->
     <p class="intro-text">Estás invitado al</p>
     <h2 class="title-cumpleanos gold-text">CUMPLEAÑOS</h2>
@@ -434,17 +445,6 @@
     
     <!-- ANIMACIÓN DE COPAS DE VINO -->
     <div class="wine-glasses">🥂</div>
-
-    <!-- CUENTA REGRESIVA -->
-    <div class="card" style="margin-top: 100px;">
-      <h3 class="gold-text" style="font-size: 1.1rem; letter-spacing: 2px;">FALTAN</h3>
-      <div class="countdown-container" id="countdown">
-        <div class="time-box"><span id="days">00</span><span>DÍAS</span></div>
-        <div class="time-box"><span id="hours">00</span><span>HORAS</span></div>
-        <div class="time-box"><span id="minutes">00</span><span>MINS</span></div>
-        <div class="time-box"><span id="seconds">00</span><span>SEGS</span></div>
-      </div>
-    </div>
 
     <!-- FECHA PRINCIPAL (NUEVO DISEÑO CON LÍNEAS VERTICALES) -->
     <div class="card event-info">
