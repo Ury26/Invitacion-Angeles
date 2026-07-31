@@ -232,7 +232,28 @@
       word-wrap: break-word;
     }
 
-    /* ESTILO PARA LA NUEVA IMAGEN DEL 50 CON LEONA */
+    /* ESTILO PARA EL NÚMERO 50 TIPOGRÁFICO */
+    .number-50-container {
+      display: flex;
+      justify-content: center;
+      align-items: baseline;
+      margin: 10px 0;
+    }
+
+    .number-prefix {
+      font-size: 1.8rem;
+      font-family: 'Cinzel', serif;
+      margin-right: 5px;
+    }
+
+    .number-50 {
+      font-size: 6.5rem;
+      font-family: 'Cinzel', serif;
+      font-weight: 700;
+      line-height: 0.9;
+    }
+
+    /* ESTILO PARA LA IMAGEN CON LA LEONA (imagen2.png) */
     .hero-image {
       max-width: 240px;
       width: 60%;
@@ -240,11 +261,6 @@
       margin: 15px auto;
       display: block;
       filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.3));
-    }
-
-    .title-name {
-      font-size: 4.5rem;
-      margin-bottom: 15px;
     }
 
     .wine-glasses {
@@ -385,7 +401,7 @@
     /* AJUSTES RESPONSIVOS */
     @media (max-width: 380px) {
       .title-cumpleanos { font-size: 3rem; }
-      .title-name { font-size: 3.2rem; }
+      .number-50 { font-size: 5.2rem; }
       .date-day-name, .date-year { font-size: 0.75rem; }
       .date-number { font-size: 1.8rem; }
       .date-month { font-size: 0.95rem; }
@@ -454,15 +470,20 @@
       </div>
     </div>
 
-    <!-- ENCABEZADO CON TIPOGRAFÍA CURSIVA E IMAGEN -->
+    <!-- ENCABEZADO CON TIPOGRAFÍA CURSIVA -->
     <p class="intro-text">Estás invitado al</p>
     <h2 class="title-cumpleanos gold-text cursive-text">Cumpleaños</h2>
     
-    <!-- IMAGEN REEMPLAZANDO AL TEXTO "NO. 50" -->
-    <img src="imagen.png" alt="50 Años" class="hero-image">
+    <!-- ESTRUCTURA DEL NO. 50 -->
+    <div class="number-50-container">
+      <span class="number-prefix gold-text">NO.</span>
+      <span class="number-50 gold-text">50</span>
+    </div>
     
     <p class="intro-text">DE</p>
-    <h1 class="title-name gold-text cursive-text">Ángeles</h1>
+    
+    <!-- IMAGEN CON LA LEONA Y EL NOMBRE ÁNGELES (imagen2.png) -->
+    <img src="imagen2.png" alt="Ángeles" class="hero-image">
     
     <!-- ANIMACIÓN DE COPAS DE VINO -->
     <div class="wine-glasses">🥂</div>
