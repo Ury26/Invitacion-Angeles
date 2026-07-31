@@ -232,25 +232,11 @@
       word-wrap: break-word;
     }
 
-    /* ESTILO PARA EL NÚMERO 50 TIPOGRÁFICO */
-    .number-50-container {
-      display: flex;
-      justify-content: center;
-      align-items: baseline;
-      margin: 10px 0;
-    }
-
-    .number-prefix {
-      font-size: 1.8rem;
-      font-family: 'Cinzel', serif;
-      margin-right: 5px;
-    }
-
-    .number-50 {
+    /* ESTILO PARA EL NÚMERO 50 CURSIVO */
+    .number-50-cursive {
       font-size: 6.5rem;
-      font-family: 'Cinzel', serif;
-      font-weight: 700;
-      line-height: 0.9;
+      margin: 0;
+      line-height: 1;
     }
 
     /* ESTILO PARA LA IMAGEN CON LA LEONA (imagen2.png) */
@@ -401,7 +387,7 @@
     /* AJUSTES RESPONSIVOS */
     @media (max-width: 380px) {
       .title-cumpleanos { font-size: 3rem; }
-      .number-50 { font-size: 5.2rem; }
+      .number-50-cursive { font-size: 5.2rem; }
       .date-day-name, .date-year { font-size: 0.75rem; }
       .date-number { font-size: 1.8rem; }
       .date-month { font-size: 0.95rem; }
@@ -474,11 +460,8 @@
     <p class="intro-text">Estás invitado al</p>
     <h2 class="title-cumpleanos gold-text cursive-text">Cumpleaños</h2>
     
-    <!-- ESTRUCTURA DEL NO. 50 -->
-    <div class="number-50-container">
-      <span class="number-prefix gold-text">NO.</span>
-      <span class="number-50 gold-text">50</span>
-    </div>
+    <!-- NÚMERO 50 CON LA TIPOGRAFÍA CURSIVA (GREAT VIBES) Y DEGRADADO DORADO -->
+    <h1 class="number-50-cursive gold-text cursive-text">50</h1>
     
     <p class="intro-text">DE</p>
     
@@ -638,6 +621,22 @@
 
     // Genera brillos con frecuencia uniforme
     setInterval(createSparkle, 180);
+
+    // --- CONTROL DE AUDIO AL SALIR O CAMBIAR DE PESTAÑA ---
+    document.addEventListener('visibilitychange', function() {
+      const audio = document.getElementById('bg-music');
+      const musicBtn = document.getElementById('music-btn');
+
+      if (document.hidden) {
+        audio.pause();
+        if (musicBtn) musicBtn.innerText = '🔇';
+      }
+    });
+
+    window.addEventListener('pagehide', function() {
+      const audio = document.getElementById('bg-music');
+      audio.pause();
+    });
   </script>
 </body>
 </html>
