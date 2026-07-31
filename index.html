@@ -250,8 +250,8 @@
     .wine-glasses {
       display: inline-block;
       font-size: 5rem;
-      margin-top: 80px;
-      margin-bottom:15px:
+      margin-top: 60px;
+      margin-bottom: 10px;
       animation: cheers 1.5s infinite ease-in-out alternate;
     }
 
@@ -266,7 +266,7 @@
       border: 1px solid rgba(212, 175, 55, 0.35);
       border-radius: 12px;
       padding: 20px;
-      margin: 50px 0;
+      margin: 40px 0;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
       position: relative;
       z-index: 20;
@@ -277,7 +277,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 10px;
+      margin-top: 15px;
+      gap: 5px;
     }
 
     .date-column {
@@ -290,9 +291,9 @@
     }
 
     .date-day-name, .date-year {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       font-weight: 700;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
     }
 
@@ -303,16 +304,16 @@
     }
 
     .date-month {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       letter-spacing: 1px;
       margin-top: 2px;
     }
 
     .date-divider {
-      width: 2px;
-      height: 55px;
+      width: 1px;
+      height: 50px;
       background: linear-gradient(to bottom, transparent, var(--gold-primary), transparent);
-      margin: 0 10px;
+      margin: 0 5px;
     }
 
     .countdown-container {
@@ -363,7 +364,7 @@
     .btn-gold {
       display: inline-block;
       width: 100%;
-      padding: 12px 20px;
+      padding: 14px 20px;
       margin: 8px 0;
       background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
       color: #000;
@@ -379,6 +380,15 @@
 
     .btn-gold:active {
       transform: scale(0.98);
+    }
+
+    /* AJUSTES RESPONSIVOS */
+    @media (max-width: 380px) {
+      .title-cumpleanos { font-size: 3rem; }
+      .title-name { font-size: 3.2rem; }
+      .date-day-name, .date-year { font-size: 0.75rem; }
+      .date-number { font-size: 1.8rem; }
+      .date-month { font-size: 0.95rem; }
     }
 
     /* BOTÓN FLOTANTE DE CONTROL DE MÚSICA */
@@ -434,7 +444,7 @@
   <div class="wrapper" id="invitation-content">
     
     <!-- CUENTA REGRESIVA EN LA PARTE SUPERIOR -->
-    <div class="card" style="margin-top: 10px; margin-bottom: 80px;">
+    <div class="card" style="margin-top: 10px; margin-bottom: 50px;">
       <h3 class="gold-text" style="font-size: 1.1rem; letter-spacing: 2px;">FALTAN</h3>
       <div class="countdown-container" id="countdown">
         <div class="time-box"><span id="days">00</span><span>DÍAS</span></div>
@@ -462,7 +472,7 @@
       <h3>FECHA</h3>
       <div class="date-display">
         <div class="date-column">
-          <span class="date-day-name gold-text" style="font-size: 0.8rem;">DOMINGO</span>
+          <span class="date-day-name gold-text">DOMINGO</span>
         </div>
         
         <div class="date-divider"></div>
@@ -559,7 +569,7 @@
     }
 
     // LÓGICA DE LA CUENTA REGRESIVA
-    const eventDate = new Date('August 02, 2026 17:00:00').getTime();
+    const eventDate = new Date('August 02, 2026 18:00:00').getTime();
 
     function updateCountdown() {
       const now = new Date().getTime();
