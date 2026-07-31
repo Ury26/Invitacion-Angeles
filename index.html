@@ -210,7 +210,7 @@
       font-family: 'Cinzel', serif;
     }
 
-    /* NUEVA CLASE PARA FUENTE CURSIVA */
+    /* CLASE PARA FUENTE CURSIVA */
     .cursive-text {
       font-family: 'Great Vibes', cursive !important;
       text-transform: none !important;
@@ -232,12 +232,14 @@
       word-wrap: break-word;
     }
 
-    .title-number {
-      font-size: 6.5rem;
-      font-weight: 700;
-      line-height: 1;
-      margin: 10px 0;
-      text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    /* ESTILO PARA LA NUEVA IMAGEN DEL 50 CON LEONA */
+    .hero-image {
+      max-width: 240px;
+      width: 80%;
+      height: auto;
+      margin: 15px auto;
+      display: block;
+      filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.3));
     }
 
     .title-name {
@@ -441,11 +443,13 @@
       </div>
     </div>
 
-    <!-- ENCABEZADO CON TIPOGRAFÍA CURSIVA -->
+    <!-- ENCABEZADO CON TIPOGRAFÍA CURSIVA E IMAGEN -->
     <p class="intro-text">Estás invitado al</p>
     <h2 class="title-cumpleanos gold-text cursive-text">Cumpleaños</h2>
-    <p class="intro-text">NO.</p>
-    <div class="title-number gold-text">50</div>
+    
+    <!-- IMAGEN REEMPLAZANDO AL TEXTO "NO. 50" -->
+    <img src="imagen.png" alt="50 Años" class="hero-image">
+    
     <p class="intro-text">DE</p>
     <h1 class="title-name gold-text cursive-text">Ángeles</h1>
     
