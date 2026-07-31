@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Invitación - 50 Años de Ángeles</title>
   
-  <!-- Tipografías elegantes desde Google Fonts -->
+  <!-- Tipografías elegantes desde Google Fonts (Incluye Great Vibes) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
   
   <!-- Canvas Confetti -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
@@ -210,6 +210,14 @@
       font-family: 'Cinzel', serif;
     }
 
+    /* NUEVA CLASE PARA FUENTE CURSIVA */
+    .cursive-text {
+      font-family: 'Great Vibes', cursive !important;
+      text-transform: none !important;
+      letter-spacing: 1px !important;
+      font-weight: normal;
+    }
+
     .intro-text {
       font-size: 1.1rem;
       letter-spacing: 4px;
@@ -219,9 +227,8 @@
     }
 
     .title-cumpleanos {
-      font-size: 2rem;
-      letter-spacing: 5px;
-      margin: 10px 0;
+      font-size: 3.2rem;
+      margin: 5px 0;
       word-wrap: break-word;
     }
 
@@ -234,8 +241,7 @@
     }
 
     .title-name {
-      font-size: 2.2rem;
-      letter-spacing: 6px;
+      font-size: 3.8rem;
       margin-bottom: 15px;
     }
 
@@ -401,9 +407,9 @@
 <body>
 
   <!-- ELEMENTO DE AUDIO OCULTO -->
-<audio id="bg-music" loop>
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
+  <audio id="bg-music" loop>
+    <source src="musica.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- BOTÓN FLOTANTE DE CONTROL DE AUDIO -->
   <div id="music-btn" onclick="toggleMusic()" style="display: none;">🎵</div>
@@ -435,18 +441,18 @@
       </div>
     </div>
 
-    <!-- ENCABEZADO -->
+    <!-- ENCABEZADO CON TIPOGRAFÍA CURSIVA -->
     <p class="intro-text">Estás invitado al</p>
-    <h2 class="title-cumpleanos gold-text">CUMPLEAÑOS</h2>
+    <h2 class="title-cumpleanos gold-text cursive-text">Cumpleaños</h2>
     <p class="intro-text">NO.</p>
     <div class="title-number gold-text">50</div>
     <p class="intro-text">DE</p>
-    <h1 class="title-name gold-text">ÁNGELES</h1>
+    <h1 class="title-name gold-text cursive-text">Ángeles</h1>
     
     <!-- ANIMACIÓN DE COPAS DE VINO -->
     <div class="wine-glasses">🥂</div>
 
-    <!-- FECHA PRINCIPAL (NUEVO DISEÑO CON LÍNEAS VERTICALES) -->
+    <!-- FECHA PRINCIPAL -->
     <div class="card event-info">
       <h3>FECHA</h3>
       <div class="date-display">
@@ -473,13 +479,13 @@
     <div class="card event-info">
       <h3>MISA DE ACCIÓN DE GRACIAS</h3>
       <p><strong><span style="font-size: 1.2rem; color: var(--gold-light);">6:00 PM</span></strong></p>
-      <p><strong></strong> Parroquia de Nuestra Señora de Guadalupe</p>
+      <p>Parroquia de Nuestra Señora de Guadalupe</p>
       
       <div class="divider"></div>
 
       <h3>REUNIÓN</h3>
       <p><strong><span style="font-size: 1.2rem; color: var(--gold-light);">7:00 PM</span></strong></p>
-      <p><strong></strong> Privada 9 sur # 116, Colonia Centro, San Pedro Cholula, Pue.</p>
+      <p>Privada 9 sur # 116, Colonia Centro, San Pedro Cholula, Pue.</p>
     </div>
 
     <!-- BOTONES DE UBICACIÓN -->
